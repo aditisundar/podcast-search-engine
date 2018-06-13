@@ -29,9 +29,9 @@ class App extends Component {
         </header>
 
         <div className="Nav">
-          <li><Link to={process.env.PUBLIC_URL + "/"}>home</Link></li>
-          <li><Link to={process.env.PUBLIC_URL + "/search"}>search</Link></li>
-          <li><Link to={process.env.PUBLIC_URL + "/my_account"}>my account</Link></li>
+          <li><Link to={windows.location.href + "/"}>home</Link></li>
+          <li><Link to={windows.location.href + "/search"}>search</Link></li>
+          <li><Link to={windows.location.href + "/my_account"}>my account</Link></li>
 
           <Route path="/search" exact component={SearchPage} />
           <Route path="/my_account" exact component={MyAccountPage} />
