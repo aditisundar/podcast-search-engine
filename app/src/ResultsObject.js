@@ -36,6 +36,7 @@ class ResultsObject extends Component {
                 this.setState({ loading: false });
             })
         if (this.props.type === "user") {
+            console.log(this.props.fetch_url)
             fetch(this.state.current_fetch_url = this.props.fetch_url)
                 .then(results => {
                     return results.json();

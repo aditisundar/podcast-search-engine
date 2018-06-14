@@ -24,10 +24,18 @@ a {
   color: white;
 }
 
-.App-header p {
+.App-header h1 {
   font-family: 'Roboto Mono';
   font-weight: 300;
   font-size: 30px;
+  line-height: 10px;
+}
+
+
+.App-header p {
+  font-family: 'Roboto Mono';
+  font-weight: 300;
+  font-size: 25px;
 }
 
 @keyframes App-logo-spin {

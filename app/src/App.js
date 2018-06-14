@@ -23,7 +23,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>podcast search engine</p>
+          <h1>oh my pod!</h1>
+          <p>a podcast search engine</p>
 
         </header>
 

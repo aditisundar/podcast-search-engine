@@ -20,7 +20,7 @@ device_id = ""  # aditi
 
 my_client = api.MygPodderClient(username, password, 'gpodder.net')
 
-
+'''
 def login(u, p, id):
     global username, password, device_id
     username = u
@@ -32,9 +32,10 @@ def logout():
     global username, password
     username = ""
     password = ""
+'''
 
 
-def get_subscriptions(order=NONE):
+def get_subscriptions(username, password, device_id, order=NONE):
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
     list = []
     for url in my_client.get_subscriptions(device_id):
@@ -43,16 +44,16 @@ def get_subscriptions(order=NONE):
     return jsonify_podcast_list(list)
 
 
-def get_suggestions():
+def get_suggestions(username, password, device_id):
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
     return jsonify_podcast_list(my_client.get_suggestions())
 
 
-def filter_subs_by_genre(genre, order=NONE):
+def filter_subs_by_genre(username, password, device_id, genre, order=NONE):
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
     final_list = []
     if(genre == "all"):
-        return get_subscriptions(order)
+        return get_subscriptions(username, password, device_id, order)
     pods_match_tag = public_client.get_podcasts_of_a_tag(genre)
     my_subs = []
     for url in my_client.get_subscriptions(device_id):
@@ -124,7 +125,6 @@ def get_monthly_freq_list(podcast):
     for ep in f.entries:
         month = ep.published_parsed[1]
         eps_per_month[month-1] += 1
-
     return eps_per_month
 
 

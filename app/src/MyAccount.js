@@ -37,7 +37,7 @@ class MyAccountPage extends Component {
 
     componentDidMount() {
         if (this.state.logged_in) {
-            this.setState({ fetch_url: base_url + 'mysubs/genre=all/sorted=0' });
+            this.setState({ fetch_url: base_url + 'mysubs/user=' + this.state.user + '/pass=' + '/device=' + this.state.device + '/genre=all/sorted=0' });
             console.log("we are logged in sir")
         }
     }
@@ -47,24 +47,21 @@ class MyAccountPage extends Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        fetch(base_url + 'login/' + this.state.user + "/" + this.state.pass + "/" + this.state.device)
-            .then(() => {
-                this.setState({
-                    logged_in: true,
-                    fetch_url: base_url + 'mysubs/genre=all/sorted=0'
-                });
-            })
+        this.setState({
+            logged_in: true,
+            fetch_url: base_url + 'mysubs/user=' + this.state.user + '/pass=' + this.state.pass + '/device=' + this.state.device + '/genre=all/sorted=0'
+        });
 
     }
 
     handleLogout() {
-        fetch(base_url + 'logout')
-            .then(() => {
-                this.setState({
-                    logged_in: false
-                })
-            })
+        this.setState({
+            logged_in: false,
+            user: "",
+            pass: "",
+            device: ""
+        })
+
     }
 
     render() {
@@ -86,7 +83,7 @@ class MyAccountPage extends Component {
         else {
             return (
                 <div>
-                    <h1>You are not logged in!</h1>
+                    <p>Log in:</p>
                     <div className="LoginField">
                         <p>Username:</p>
                         <input type="text" name="user" onChange={this.handleChange} />
