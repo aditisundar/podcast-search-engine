@@ -1,16 +1,15 @@
-from mygpoclient import api, public
+from mygpoclient import api, public, feeds
 from mygpoclient.json import JsonClient
 import json
+import feedparser
+
+# CLIENT FUNCTIONS
 
 username = ""  # aditer
 password = ""  # 7424
 device_id = ""  # aditi
 
-NONE = 0
-BY_POP = 1
-BY_GENRE = 2
 
-public_client = public.PublicClient()
 my_client = api.MygPodderClient(username, password, 'gpodder.net')
 
 
@@ -32,8 +31,7 @@ def get_subscriptions(order=NONE):
     list = []
     for url in my_client.get_subscriptions(device_id):
         list.append(public_client.get_podcast_data(url))
-    if(order == BY_POP):
-        list = sort_by_popularity(list)
+    list = appropriate_sort(list, order)
     return jsonify_podcast_list(list)
 
 
@@ -42,14 +40,35 @@ def get_suggestions():
     return jsonify_podcast_list(my_client.get_suggestions())
 
 
+def filter_subs_by_genre(genre, order=NONE):
+    my_client = api.MygPodderClient(username, password, 'gpodder.net')
+    final_list = []
+    if(genre == "all"):
+        return get_subscriptions(order)
+    pods_match_tag = public_client.get_podcasts_of_a_tag(genre)
+    my_subs = []
+    for url in my_client.get_subscriptions(device_id):
+        my_subs.append(public_client.get_podcast_data(url))
+    for p in my_subs:
+        if p in pods_match_tag:
+            final_list.append(p)
+    final_list = appropriate_sort(final_list, order)
+    return jsonify_podcast_list(final_list)
+
+
+# PUBLIC FUNCTIONS
+
+public_client = public.PublicClient()
+
+
 def get_top_list():
-    return jsonify_podcast_list(public_client.get_toplist())
+    list = public_client.get_toplist()
+    return jsonify_podcast_list(list)
 
 
 def search_podcasts(query, order=NONE):
     list = public_client.search_podcasts(query)
-    if(order == BY_POP):
-        list = sort_by_popularity(list)
+    list = appropriate_sort(list, order)
     return jsonify_podcast_list(list)
 
 
@@ -65,23 +84,6 @@ def get_top_genres():
     return JsonClient.encode(final_json)
 
 
-def filter_subs_by_genre(genre, order=NONE):
-    my_client = api.MygPodderClient(username, password, 'gpodder.net')
-    final_list = []
-    if(genre == "all"):
-        return get_subscriptions(order)
-    pods_match_tag = public_client.get_podcasts_of_a_tag(genre)
-    my_subs = []
-    for url in my_client.get_subscriptions(device_id):
-        my_subs.append(public_client.get_podcast_data(url))
-    for p in my_subs:
-        if p in pods_match_tag:
-            final_list.append(p)
-    if(order == BY_POP):
-        final_list = sort_by_popularity(final_list)
-    return jsonify_podcast_list(final_list)
-
-
 def search_podcasts_by_genre(query, genre, order=NONE):
     final_list = []
     if(genre == "all"):
@@ -91,9 +93,53 @@ def search_podcasts_by_genre(query, genre, order=NONE):
     for p in pods_match_query:
         if p in pods_match_tag:
             final_list.append(p)
-    if(order == BY_POP):
-        final_list = sort_by_popularity(final_list)
+    final_list = appropriate_sort(final_list, order)
     return jsonify_podcast_list(final_list)
+
+# SORTS
+
+
+# SORTING CONSTANTS
+
+NONE = 0
+BY_POP = 1
+BY_MONTHLY_AVG = 2
+BY_LAST_3MONTHS = 3
+
+# HELPER FUNCTIONS
+
+
+def appropriate_sort(pod_list, order):
+    if(order == NONE):
+        return pod_list
+    if(order == BY_POP):
+        return sorted(pod_list, key=lambda pod: pod.subscribers, reverse=True)
+    if(order == BY_MONTHLY_AVG):
+        return sorted(pod_list, key=get_monthly_avg, reverse=True)
+    if(order == BY_LAST_3MONTHS):
+        return sorted(pod_list, key=num_in_last_3months, reverse=True)
+
+
+def get_monthly_freq_list(podcast):
+    eps_per_month = [0 for x in range(12)]
+    f = feedparser.parse(podcast.url)
+    for ep in f.entries:
+        month = ep.published_parsed[1]
+        eps_per_month[month-1] += 1
+
+    return eps_per_month
+
+
+def num_in_last_3months(podcast):
+    freq = get_monthly_freq_list(podcast)
+    return freq[5] + freq[4] + freq[3]
+
+
+def get_monthly_avg(podcast):
+    f = feedparser.parse(podcast.url)
+    return len(f.entries)//12
+
+# STRINGIFY FUNCTIONS
 
 
 def jsonify_podcast(pod):
@@ -112,7 +158,3 @@ def jsonify_podcast_list(pod_list):
         pod = jsonify_podcast(entry)
         new_pod_list.append(pod)
     return JsonClient.encode(new_pod_list)
-
-
-def sort_by_popularity(pod_list):
-    return sorted(pod_list, key=lambda pod: pod.subscribers, reverse=True)

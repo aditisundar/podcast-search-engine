@@ -4,7 +4,6 @@ import json
 from json import dumps as stringify
 from flask_cors import CORS, cross_origin
 import utilities
-from utilities import NONE, BY_GENRE, BY_POP
 
 app = Flask(__name__)
 CORS(app)
@@ -38,13 +37,6 @@ def get_top():
     return utilities.get_top_list()
 
 
-@app.route("/mysubs/sorted=<sort>")
-def get_subs(sort):
-    if(logged_in):
-        return utilities.get_subscriptions(int(sort))
-    return "User not logged in!"
-
-
 @app.route("/mysubs/genre=<genre>/sorted=<sort>")
 def get_filtered_subs(genre, sort):
     if(logged_in):
@@ -55,11 +47,6 @@ def get_filtered_subs(genre, sort):
 @app.route("/mysugs")
 def get_sugs():
     return utilities.get_suggestions()
-
-
-@app.route("/search/<query>/sorted=<sort>")
-def search_podcasts(query, sort):
-    return utilities.search_podcasts(query, int(sort))
 
 
 @app.route("/topgenres")
