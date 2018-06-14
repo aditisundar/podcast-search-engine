@@ -50,10 +50,12 @@ class MyAccountPage extends Component {
     handleSubmit(event) {
         event.preventDefault();
         fetch(base_url + 'login/' + this.state.user + "/" + this.state.pass + "/" + this.state.device)
-        this.setState({
-            logged_in: true,
-            fetch_url: base_url + 'mysubs/genre=all/sorted=0'
-        });
+            .then(() => {
+                this.setState({
+                    logged_in: true,
+                    fetch_url: base_url + 'mysubs/genre=all/sorted=0'
+                });
+            })
 
     }
 
