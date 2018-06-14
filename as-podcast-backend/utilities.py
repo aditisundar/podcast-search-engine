@@ -3,6 +3,14 @@ from mygpoclient.json import JsonClient
 import json
 import feedparser
 
+
+# SORTING CONSTANTS
+
+NONE = 0
+BY_POP = 1
+BY_MONTHLY_AVG = 2
+BY_LAST_3MONTHS = 3
+
 # CLIENT FUNCTIONS
 
 username = ""  # aditer
@@ -96,17 +104,7 @@ def search_podcasts_by_genre(query, genre, order=NONE):
     final_list = appropriate_sort(final_list, order)
     return jsonify_podcast_list(final_list)
 
-# SORTS
-
-
-# SORTING CONSTANTS
-
-NONE = 0
-BY_POP = 1
-BY_MONTHLY_AVG = 2
-BY_LAST_3MONTHS = 3
-
-# HELPER FUNCTIONS
+# SORT FUNCTIONS
 
 
 def appropriate_sort(pod_list, order):
