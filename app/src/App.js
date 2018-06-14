@@ -29,12 +29,12 @@ class App extends Component {
         </header>
 
         <div className="Nav">
-          <li><Link to={"${process.env.PUBLIC_URL}/"}>home</Link></li>
-          <li><Link to={"${process.env.PUBLIC_URL}/search"}>search</Link></li>
-          <li><Link to={"${process.env.PUBLIC_URL}/my_account"}>my account</Link></li>
+          <li><Link to={"/"}>home</Link></li>
+          <li><Link to={"/search"}>search</Link></li>
+          <li><Link to={"/my_account"}>my account</Link></li>
 
-          <Route path="${process.env.PUBLIC_URL}/search" exact component={SearchPage} />
-          <Route path="${process.env.PUBLIC_URL}/my_account" exact component={MyAccountPage} />
+          <Route path="/search" exact component={SearchPage} />
+          <Route path="/my_account" exact component={MyAccountPage} />
 
         </div>
 
