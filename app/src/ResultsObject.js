@@ -35,14 +35,16 @@ class ResultsObject extends Component {
                 this.setState({ genres: data });
                 this.setState({ loading: false });
             })
-        fetch(this.state.current_fetch_url = this.props.fetch_url)
-            .then(results => {
-                return results.json();
-            })
-            .then(data => {
-                this.setState({ podcasts: data });
-                this.setState({ loading: false });
-            })
+        if (this.props.type === "user") {
+            fetch(this.state.current_fetch_url = this.props.fetch_url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    this.setState({ podcasts: data });
+                    this.setState({ loading: false });
+                })
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -62,12 +64,17 @@ class ResultsObject extends Component {
         }
     }
 
-    orderResults() {
+    orderResults(e) {
+        e.preventDefault();
         this.setState({ podcasts: [] });
         this.setState({ loading: true });
 
-        fetch(this.state.current_fetch_url = this.state.current_fetch_url.replace('sorted=0', 'sorted=1'))
+        /*fetch(this.state.current_fetch_url = this.state.current_fetch_url.replace('sorted=0', 'sorted=1'))*/
+        var url = this.state.current_fetch_url;
+        console.log(url.substring(0, url.indexOf('sorted=')) + 'sorted=' + e.target.value)
+        fetch(this.state.current_fetch_url = url.substring(0, url.indexOf('sorted=')) + 'sorted=' + e.target.value)
             .then(results => {
+                console.log(this.state.current_fetch_url)
                 return results.json();
             })
             .then(data => {
@@ -115,24 +122,6 @@ class ResultsObject extends Component {
         if (this.state.loading) {
             return (
                 <div className="Loading">
-                    <div className="Filters">
-                        <div className="OrderBy">
-                            <p>Order by:</p>
-                            <button onClick={this.orderResults}>Popularity</button>
-                            <button onClick={this.unOrderResults}>Relevance</button>
-                        </div>
-                        <div className="AllGenres">
-                            <p>Search top genres:</p>
-                            <select onChange={this.filterResults}>
-                                <option value={"all"}>all</option>
-                                {
-                                    this.state.genres.map(genre => {
-                                        return <option value={genre.tag} > {genre.tag}</option>
-                                    })
-                                }
-                            </select>
-                        </div>
-                    </div>
                     <Spinner className='Loader' name='ball-zig-zag-deflect' color='rgb(218, 124, 2)' />
                 </div>
             )
@@ -142,8 +131,10 @@ class ResultsObject extends Component {
                     <div className="Filters">
                         <div className="OrderBy">
                             <p>Order by:</p>
-                            <button onClick={this.orderResults}>Popularity</button>
-                            <button onClick={this.unOrderResults}>Relevance</button>
+                            <button value={0} onClick={this.orderResults}>Relevance</button>
+                            <button value={1} onClick={this.orderResults}>Popularity</button>
+                            <button value={2} onClick={this.orderResults}>Episodes per month</button>
+                            <button value={3} onClick={this.orderResults}>Recently updated</button>
                         </div>
                         <div className="AllGenres">
                             <p>Search top genres:</p>
@@ -151,7 +142,7 @@ class ResultsObject extends Component {
                                 <option value={"all"}>all</option>
                                 {
                                     this.state.genres.map(genre => {
-                                        return <option value={genre.tag} > {genre.tag}</option>
+                                        return <option key={genre.tag} value={genre.tag} > {genre.tag}</option>
                                     })
                                 }
                             </select>
@@ -170,3 +161,4 @@ class ResultsObject extends Component {
 }
 
 export default ResultsObject;
+

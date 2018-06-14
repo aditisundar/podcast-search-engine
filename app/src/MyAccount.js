@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import './PodcastObject.js'
-import PodcastObject from './PodcastObject.js';
 import {
     BrowserRouter as Router,
     Route,
@@ -79,7 +78,7 @@ class MyAccountPage extends Component {
                     <Route path="/suggestions" exact component={MySuggestions} />
                     <div className="MySubs">
                         <h1>My Subscriptions</h1>
-                        <ResultsObject fetch_url={this.state.fetch_url} />
+                        <ResultsObject type="user" fetch_url={this.state.fetch_url} />
                     </div>
                 </div>
             );

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import SearchPage from './Search.js';
 import MyAccountPage from './MyAccount.js';
-import PodcastObject from './PodcastObject.js';
 import {
   BrowserRouter as Router,
   Route,

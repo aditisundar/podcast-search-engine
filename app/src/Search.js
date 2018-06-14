@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import './PodcastObject.js'
 import ResultsObject from './ResultsObject.js';
-import PodcastObject from './PodcastObject.js';
 
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
@@ -34,7 +33,7 @@ class SearchPage extends Component {
                 <input className="Search-field" type="text" onChange={this.handleChange} />
                 <input className="Search-submit" type="submit" name="SUBMIT" onClick={this.handleSubmit} />
                 <h1>Search "{this.state.query}"</h1>
-                <ResultsObject fetch_url={this.state.fetch_url} />
+                <ResultsObject type="search" fetch_url={this.state.fetch_url} />
             </div>
         );
     }

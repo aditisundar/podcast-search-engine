@@ -4,6 +4,7 @@
   "homepage": "https://as-podcast-search.herokuapp.com/",
   "private": true,
   "dependencies": {
+    "npm": "^6.1.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-router-dom": "^4.3.1",
