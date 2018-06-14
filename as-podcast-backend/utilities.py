@@ -2,10 +2,9 @@ from mygpoclient import api, public
 from mygpoclient.json import JsonClient
 import json
 
-
-username = "aditer"
-password = "7424"
-device_id = "aditi"
+username = ""  # aditer
+password = ""  # 7424
+device_id = ""  # aditi
 
 NONE = 0
 BY_POP = 1
@@ -15,7 +14,21 @@ public_client = public.PublicClient()
 my_client = api.MygPodderClient(username, password, 'gpodder.net')
 
 
+def login(u, p, id):
+    global username, password, device_id
+    username = u
+    password = p
+    device_id = id
+
+
+def logout():
+    global username, password
+    username = ""
+    password = ""
+
+
 def get_subscriptions(order=NONE):
+    my_client = api.MygPodderClient(username, password, 'gpodder.net')
     list = []
     for url in my_client.get_subscriptions(device_id):
         list.append(public_client.get_podcast_data(url))
@@ -25,6 +38,7 @@ def get_subscriptions(order=NONE):
 
 
 def get_suggestions():
+    my_client = api.MygPodderClient(username, password, 'gpodder.net')
     return jsonify_podcast_list(my_client.get_suggestions())
 
 
@@ -52,6 +66,7 @@ def get_top_genres():
 
 
 def filter_subs_by_genre(genre, order=NONE):
+    my_client = api.MygPodderClient(username, password, 'gpodder.net')
     final_list = []
     if(genre == "all"):
         return get_subscriptions(order)

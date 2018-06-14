@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>podcasdasdt search engine</p>
+          <p>podcast search engine</p>
 
         </header>
 
@@ -47,9 +47,5 @@ export default App;
 
 /*
 
-        {
-          Object.keys(this.state.podcasts).map(pod => {
-            return <PodcastObject name={this.state.podcasts[pod].title} desc={this.state.podcasts[pod].description} num_subs={this.state.podcasts[pod].subscribers} url={pod} />
-          })
-        }
+       render={(props) => { <MyAccountPage {...props} logged_in={this.state.logged_in} /> }}
         */

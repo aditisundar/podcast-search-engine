@@ -9,10 +9,28 @@ from utilities import NONE, BY_GENRE, BY_POP
 app = Flask(__name__)
 CORS(app)
 
+logged_in = False
+
 
 @app.route("/")
 def index():
     return "home"
+
+
+@app.route("/login/<username>/<password>/<id>")
+def login(username, password, id):
+    global logged_in
+    utilities.login(username, password, id)
+    logged_in = True
+    return "logged in"
+
+
+@app.route("/logout")
+def logout():
+    global logged_in
+    utilities.logout
+    logged_in = False
+    return "logged out"
 
 
 @app.route("/toplist")
@@ -22,12 +40,16 @@ def get_top():
 
 @app.route("/mysubs/sorted=<sort>")
 def get_subs(sort):
-    return utilities.get_subscriptions(int(sort))
+    if(logged_in):
+        return utilities.get_subscriptions(int(sort))
+    return "User not logged in!"
 
 
 @app.route("/mysubs/genre=<genre>/sorted=<sort>")
 def get_filtered_subs(genre, sort):
-    return utilities.filter_subs_by_genre(genre, int(sort))
+    if(logged_in):
+        return utilities.filter_subs_by_genre(genre, int(sort))
+    return "User not logged in!"
 
 
 @app.route("/mysugs")

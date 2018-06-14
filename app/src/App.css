@@ -176,3 +176,21 @@ a {
   width: 0;
   height: 0;
 }
+
+.MyAccount button {
+    font-size: 20px;
+     color: rgb(218, 124, 2);
+  font-weight: 700;
+  border: none;
+}
+
+.MyAccount button:hover {
+    font-size: 20px;
+     background-color: rgb(218, 124, 2);
+     color:white;
+  font-weight: 700;
+  border: none;
+  height: 40px; 
+  transition: .2s ease-in;
+  display:inline-block;
+}

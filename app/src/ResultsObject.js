@@ -35,6 +35,14 @@ class ResultsObject extends Component {
                 this.setState({ genres: data });
                 this.setState({ loading: false });
             })
+        fetch(this.state.current_fetch_url = this.props.fetch_url)
+            .then(results => {
+                return results.json();
+            })
+            .then(data => {
+                this.setState({ podcasts: data });
+                this.setState({ loading: false });
+            })
     }
 
     componentDidUpdate(prevProps) {
