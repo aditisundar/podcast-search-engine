@@ -1,4 +1,4 @@
-App is live at: [aditisundar.github.io/podcast-search-engine](https://aditisundar.github.io/podcast-search-engine/)
+App is live at: [as-podcast-search.herokuapp.com](https://as-podcast-search.herokuapp.com/)
 
 # Guidelines:
 

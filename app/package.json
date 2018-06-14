@@ -1,7 +1,7 @@
 {
   "name": "static",
   "version": "0.1.0",
-  "homepage": "https://aditisundar.github.io/podcast-search-engine",
+  "homepage": "https://as-podcast-search.herokuapp.com/",
   "private": true,
   "dependencies": {
     "react": "^16.4.0",
