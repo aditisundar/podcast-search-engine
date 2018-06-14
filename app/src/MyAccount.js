@@ -61,9 +61,11 @@ class MyAccountPage extends Component {
 
     handleLogout() {
         fetch(base_url + 'logout')
-        this.setState({
-            logged_in: false
-        })
+            .then(() => {
+                this.setState({
+                    logged_in: false
+                })
+            })
     }
 
     render() {

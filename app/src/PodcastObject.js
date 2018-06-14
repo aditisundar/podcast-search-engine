@@ -16,7 +16,7 @@ class PodcastObject extends Component {
         return (
             <div className='PodcastObject'>
                 <img src={this.state.logo_url} alt='' className='image'></img>
-                <h1 className='name'><a href={this.state.logo_url}>{this.state.name}</a></h1>
+                <h1 className='name'><a href={this.state.url}>{this.state.name}</a></h1>
                 <h2 className='desc'>{this.state.desc}</h2>
                 <p className='num_subs'>{this.state.num_subs} subscribers</p>
             </div>
