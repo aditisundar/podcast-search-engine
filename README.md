@@ -1,4 +1,4 @@
-App is live at: [ohmypod](https://ohmypod.herokuapp.com/)
+App is live at: [ohmypod.herokuapp.com](https://ohmypod.herokuapp.com/)
 
 # Guidelines:
 
