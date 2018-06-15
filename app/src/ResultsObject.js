@@ -123,7 +123,7 @@ class ResultsObject extends Component {
                             <button value={1} onClick={this.orderResults}>Popularity</button>
                             <button value={2} onClick={this.orderResults}>Episodes per month</button>
                             <button value={3} onClick={this.orderResults}>Recently updated</button>
-                            <button value={3} onClick={this.orderResults}>Subscribers gained</button>
+                            <button value={4} onClick={this.orderResults}>Subscribers gained</button>
                         </div>
                         <div className="AllGenres">
                             <p>Search top genres:</p>
