@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import SearchPage from './Search.js';
 import MyAccountPage from './MyAccount.js';
+import AboutPage from './AboutPage.js';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -39,11 +41,13 @@ class App extends Component {
             <li><Link to={"/"}>home</Link></li>
             <li><Link to={"/search"}>search</Link></li>
             <li><Link to={"/my_account"}>my account</Link></li>
+            <li><Link to={"/about"}>about</Link></li>
           </div>
         </header>
 
         <Route path="/search" exact component={SearchPage} />
         <Route path="/my_account" exact component={MyAccountPage} />
+        <Route path="/about" exact component={AboutPage} />
 
 
 

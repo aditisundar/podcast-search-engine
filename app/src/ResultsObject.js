@@ -84,19 +84,6 @@ class ResultsObject extends Component {
             })
     }
 
-    unOrderResults() {
-        this.setState({ podcasts: [] });
-        this.setState({ loading: true });
-        fetch(this.state.current_fetch_url = this.state.current_fetch_url.replace('sorted=1', 'sorted=0'))
-            .then(results => {
-                return results.json();
-            })
-            .then(data => {
-                this.setState({ podcasts: data });
-                this.setState({ loading: false });
-            })
-    }
-
     filterResults(e) {
         this.setState({ podcasts: [] });
         var url = this.state.current_fetch_url;
@@ -123,7 +110,7 @@ class ResultsObject extends Component {
         if (this.state.loading) {
             return (
                 <div className="Loading">
-                    <Spinner className='Loader' name='ball-zig-zag-deflect' color='rgb(218, 124, 2)' />
+                    <Spinner className='Loader' name='ball-zig-zag-deflect' color='rgb(14, 128, 204)' />
                 </div>
             )
         } else {
@@ -136,6 +123,7 @@ class ResultsObject extends Component {
                             <button value={1} onClick={this.orderResults}>Popularity</button>
                             <button value={2} onClick={this.orderResults}>Episodes per month</button>
                             <button value={3} onClick={this.orderResults}>Recently updated</button>
+                            <button value={3} onClick={this.orderResults}>Subscribers gained</button>
                         </div>
                         <div className="AllGenres">
                             <p>Search top genres:</p>

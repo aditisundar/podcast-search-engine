@@ -10,6 +10,7 @@ NONE = 0
 BY_POP = 1
 BY_MONTHLY_AVG = 2
 BY_LAST_3MONTHS = 3
+BY_SUBS_GAINED = 4
 
 # CLIENT FUNCTIONS
 
@@ -121,6 +122,12 @@ def appropriate_sort(pod_list, order):
         return sorted(pod_list, key=get_monthly_avg, reverse=True)
     if(order == BY_LAST_3MONTHS):
         return sorted(pod_list, key=num_in_last_3months, reverse=True)
+    if(order == BY_SUBS_GAINED):
+        return sorted(pod_list, key=subs_gained_since_last_week, reverse=True)
+
+
+def subs_gained_since_last_week(podcast):
+    return podcast.subscribers - podcast.subscribers_last_week
 
 
 def get_monthly_freq_list(podcast):

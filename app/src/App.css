@@ -300,3 +300,18 @@ a {
 .Login-submit:hover {
     background-color: rgb(9, 64, 100);
 }
+
+.About {
+    min-height: 620px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.About h1 {
+    font-family: 'Song Myung', serif;
+}
