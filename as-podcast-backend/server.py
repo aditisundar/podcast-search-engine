@@ -16,24 +16,6 @@ def index():
     return "home"
 
 
-'''
-@app.route("/login/<username>/<password>/<id>")
-def login(username, password, id):
-    global logged_in
-    utilities.login(username, password, id)
-    logged_in = True
-    return "logged in"
-
-
-@app.route("/logout")
-def logout():
-    global logged_in
-    utilities.logout
-    logged_in = False
-    return "logged out"
-'''
-
-
 @app.route("/toplist")
 def get_top():
     return utilities.get_top_list()
@@ -44,9 +26,9 @@ def get_filtered_subs(u, p, d, genre, sort):
     return utilities.filter_subs_by_genre(u, p, d, genre, int(sort))
 
 
-@app.route("/mysugs/user=<u>/pass=<p>/device=<d>")
-def get_sugs(u, p, d):
-    return utilities.get_suggestions(u, p, d)
+@app.route("/mysugs/user=<u>/pass=<p>/device=<d>/genre=<genre>/sorted=<sort>")
+def get_sugs(u, p, d, genre, sort):
+    return utilities.filter_sugs_by_genre(u, p, d, genre, sort)
 
 
 @app.route("/topgenres")

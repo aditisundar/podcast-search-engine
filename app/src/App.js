@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom'
 import Spinner from 'react-spinkit';
 
+
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
 class App extends Component {
@@ -19,24 +20,32 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>oh my pod!</h1>
-          <p>a podcast search engine</p>
-
+          <div className="Title">
+            <h1>oh my pod.</h1>
+            <p>a podcast search engine created using the gpodder.net api</p>
+          </div>
+          <div className="Nav">
+            <li><Link to={"/"}>home</Link></li>
+            <li><Link to={"/search"}>search</Link></li>
+            <li><Link to={"/my_account"}>my account</Link></li>
+          </div>
         </header>
 
-        <div className="Nav">
-          <li><Link to={"/"}>home</Link></li>
-          <li><Link to={"/search"}>search</Link></li>
-          <li><Link to={"/my_account"}>my account</Link></li>
+        <Route path="/search" exact component={SearchPage} />
+        <Route path="/my_account" exact component={MyAccountPage} />
 
-          <Route path="/search" exact component={SearchPage} />
-          <Route path="/my_account" exact component={MyAccountPage} />
 
-        </div>
 
       </div >
     );
@@ -45,7 +54,7 @@ class App extends Component {
 
 export default App;
 
-/*
-
+    /*
+    
        render={(props) => { <MyAccountPage {...props} logged_in={this.state.logged_in} /> }}
         */

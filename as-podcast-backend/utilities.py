@@ -20,20 +20,6 @@ device_id = ""  # aditi
 
 my_client = api.MygPodderClient(username, password, 'gpodder.net')
 
-'''
-def login(u, p, id):
-    global username, password, device_id
-    username = u
-    password = p
-    device_id = id
-
-
-def logout():
-    global username, password
-    username = ""
-    password = ""
-'''
-
 
 def get_subscriptions(username, password, device_id, order=NONE):
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
@@ -44,9 +30,11 @@ def get_subscriptions(username, password, device_id, order=NONE):
     return jsonify_podcast_list(list)
 
 
-def get_suggestions(username, password, device_id):
+def get_suggestions(username, password, device_id, genre, order=NONE):
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
-    return jsonify_podcast_list(my_client.get_suggestions())
+    list = my_client.get_suggestions()
+    list = appropriate_sort(list, order)
+    return jsonify_podcast_list(list)
 
 
 def filter_subs_by_genre(username, password, device_id, genre, order=NONE):
@@ -65,7 +53,23 @@ def filter_subs_by_genre(username, password, device_id, genre, order=NONE):
     return jsonify_podcast_list(final_list)
 
 
+def filter_sugs_by_genre(username, password, device_id, genre, order=NONE):
+    my_client = api.MygPodderClient(username, password, 'gpodder.net')
+    final_list = []
+    if(genre == "all"):
+        return get_suggestions(username, password, device_id, genre, order)
+    pods_match_tag = public_client.get_podcasts_of_a_tag(genre)
+    my_sugs = []
+    for url in my_client.get_suggestions(device_id):
+        my_sugs.append(public_client.get_podcast_data(url))
+    for p in my_sugs:
+        if p in pods_match_tag:
+            final_list.append(p)
+    final_list = appropriate_sort(final_list, order)
+    return jsonify_podcast_list(final_list)
+
 # PUBLIC FUNCTIONS
+
 
 public_client = public.PublicClient()
 

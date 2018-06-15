@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import './PodcastObject.js'
 import ResultsObject from './ResultsObject.js';
+import ReactDOM from 'react-dom';
+
 
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
@@ -16,6 +18,14 @@ class SearchPage extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
+    }
+
+    componentDidMount() {
+        var rect = ReactDOM.findDOMNode(this).getBoundingClientRect()
+        window.scrollTo({
+            top: rect.top,
+            behavior: 'smooth'
+        });
     }
 
     handleChange(e) {
