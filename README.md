@@ -1,4 +1,4 @@
-App is live at: [as-podcast-search.herokuapp.com](https://as-podcast-search.herokuapp.com/)
+App is live at: [ohmypod](https://ohmypod.herokuapp.com/)
 
 # Guidelines:
 
