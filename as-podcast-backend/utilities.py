@@ -1,7 +1,7 @@
 from mygpoclient import api, public, feeds
 from mygpoclient.json import JsonClient
 import json
-import feedparser
+import speedparser  # feedparser
 
 
 # SORTING CONSTANTS
@@ -131,21 +131,23 @@ def subs_gained_since_last_week(podcast):
 
 
 def get_monthly_freq_list(podcast):
-    eps_per_month = [0 for x in range(12)]
-    f = feedparser.parse(podcast.url)
+    eps_per_month = [0 for x in range(3)]
+    f = speedparser.parse(podcast.url)
     for ep in f.entries:
         month = ep.published_parsed[1]
-        eps_per_month[month-1] += 1
+        if(month > 6 or month < 4):
+            break
+        eps_per_month[month-4] += 1
     return eps_per_month
 
 
 def num_in_last_3months(podcast):
     freq = get_monthly_freq_list(podcast)
-    return freq[5] + freq[4] + freq[3]
+    return freq[2] + freq[1] + freq[0]
 
 
 def get_monthly_avg(podcast):
-    f = feedparser.parse(podcast.url)
+    f = speedparser.parse(podcast.url)
     return len(f.entries)//12
 
 # STRINGIFY FUNCTIONS
