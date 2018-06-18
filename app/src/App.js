@@ -3,7 +3,6 @@ import './App.css';
 import SearchPage from './Search.js';
 import MyAccountPage from './MyAccount.js';
 import AboutPage from './AboutPage.js';
-import LoginPage from './LoginPage.js';
 import {
   BrowserRouter as Router,
   Route,
