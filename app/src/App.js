@@ -32,7 +32,7 @@ class App extends Component {
 
   scrollTo() {
     window.scrollTo({
-      top: 2000,
+      top: 650,
       behavior: 'smooth'
     });
   }

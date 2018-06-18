@@ -29,7 +29,7 @@ class ResultsObject extends Component {
                 this.setState({ genres: data });
                 this.setState({ loading: false })
             })
-        if (this.props.type === "user" && this.props.fetch_url !== base_url) {
+        if (this.props.fetch_url !== base_url) {
             this.setState({ loading: true })
             fetch(this.state.current_fetch_url = this.props.fetch_url)
                 .then(results => {
@@ -44,17 +44,18 @@ class ResultsObject extends Component {
 
     componentWillReceiveProps(nextProps) {
         /* Fetch current results */
-        this.setState({ podcasts: [] });
-        this.setState({ loading: true });
-
-        fetch(this.state.current_fetch_url = nextProps.fetch_url)
-            .then(results => {
-                return results.json();
-            })
-            .then(data => {
-                this.setState({ podcasts: data });
-                this.setState({ loading: false });
-            })
+        if (nextProps.fetch_url !== base_url + 'toplist') {
+            this.setState({ podcasts: [] });
+            this.setState({ loading: true });
+            fetch(this.state.current_fetch_url = nextProps.fetch_url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    this.setState({ podcasts: data });
+                    this.setState({ loading: false });
+                })
+        }
     }
 
     orderResults(e) {

@@ -7,24 +7,13 @@ import ReactDOM from 'react-dom';
 
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
-class WhatsHot extends Component {
-    render() {
-        return (
-            <div className="WhatsHot">
-                <h1>What's hot right now?</h1>
-                <ResultsObject type="search" fetch_url={this.props.fetch_url} />
-            </div>
-        );
-    }
-}
-
 class SearchResults extends Component {
     render() {
         if (this.props.fetch_url === base_url + 'toplist')
             return (
                 <div className="WhatsHot">
-                    <h1>What's hot right now...</h1>
-                    <ResultsObject fetch_url={this.props.fetch_url} />
+                    <h1>What's hot right now?</h1>
+                    <ResultsObject type="user" fetch_url={base_url + 'toplist'} />
                 </div>
             );
         else {
@@ -54,7 +43,7 @@ class SearchPage extends Component {
     }
 
     handleChange(e) {
-        this.setState({ query: e.target.value });
+        this.state.query = e.target.value;
     }
 
     handleSubmit(e) {
