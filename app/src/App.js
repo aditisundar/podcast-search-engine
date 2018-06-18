@@ -13,13 +13,6 @@ import Spinner from 'react-spinkit';
 
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
-const MyAccPage = (props) => {
-  return (
-    <MyAccountPage logged_in={this.state.logged_in} user={this.state.user} pass={this.state.pass} device={this.state.device}
-      handleChange={this.handleChange.bind(this)} handleLogout={this.handleLogout.bind(this)} handleSubmit={this.handleSubmit.bind(this)} />
-  );
-}
-
 class App extends Component {
   constructor() {
     super();
