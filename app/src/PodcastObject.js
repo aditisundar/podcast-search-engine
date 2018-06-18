@@ -26,5 +26,3 @@ class PodcastObject extends Component {
 }
 
 export default PodcastObject;
-
-/*<img src='https://i.pinimg.com/originals/b5/3e/d5/b53ed54c991254eacf6f28ae009b31df.png' alt='' className='image'></img>*/

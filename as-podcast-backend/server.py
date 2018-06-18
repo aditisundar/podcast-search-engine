@@ -8,8 +8,6 @@ import utilities
 app = Flask(__name__)
 CORS(app)
 
-logged_in = False
-
 
 @app.route("/")
 def index():

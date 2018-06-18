@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import './PodcastObject.js'
 import PodcastObject from './PodcastObject.js';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom'
 import Spinner from 'react-spinkit';
 
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
@@ -26,7 +21,6 @@ class ResultsObject extends Component {
 
     componentDidMount() {
         /* Fetch list of top tags */
-        console.log("mounted")
         this.setState({ loading: true });
         fetch(base_url + 'topgenres')
             .then(results => {
@@ -36,7 +30,6 @@ class ResultsObject extends Component {
                 this.setState({ loading: false });
             })
         if (this.props.type === "user" && this.props.fetch_url !== base_url) {
-            console.log(this.props.fetch_url)
             fetch(this.state.current_fetch_url = this.props.fetch_url)
                 .then(results => {
                     return results.json();
@@ -50,10 +43,6 @@ class ResultsObject extends Component {
 
     componentWillReceiveProps(nextProps) {
         /* Fetch current results */
-        console.log("updated")
-        console.log(nextProps.fetch_url)
-        console.log(nextProps.user)
-
         this.setState({ podcasts: [] });
         this.setState({ loading: true });
 
@@ -66,36 +55,15 @@ class ResultsObject extends Component {
                 this.setState({ loading: false });
             })
     }
-    /*
-        componentDidUpdate(prevProps) {
-            console.log("updated")
-    
-            if (this.props.fetch_url !== prevProps.fetch_url) {
-                this.setState({ podcasts: [] });
-                this.setState({ loading: true });
-    
-                fetch(this.state.current_fetch_url = this.props.fetch_url)
-                    .then(results => {
-                        return results.json();
-                    })
-                    .then(data => {
-                        this.setState({ podcasts: data });
-                        this.setState({ loading: false });
-                    })
-            }
-        }*/
 
     orderResults(e) {
         e.preventDefault();
         this.setState({ podcasts: [] });
         this.setState({ loading: true });
 
-        /*fetch(this.state.current_fetch_url = this.state.current_fetch_url.replace('sorted=0', 'sorted=1'))*/
         var url = this.state.current_fetch_url;
-        console.log(url.substring(0, url.indexOf('sorted=')) + 'sorted=' + e.target.value)
         fetch(this.state.current_fetch_url = url.substring(0, url.indexOf('sorted=')) + 'sorted=' + e.target.value)
             .then(results => {
-                console.log(this.state.current_fetch_url)
                 return results.json();
             })
             .then(data => {

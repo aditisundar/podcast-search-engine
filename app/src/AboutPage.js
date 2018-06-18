@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import ResultsObject from './ResultsObject.js';
 import ReactDOM from 'react-dom';
-
-
-var base_url = 'https://as-podcast-backend.herokuapp.com/';
-
 
 class AboutPage extends Component {
 

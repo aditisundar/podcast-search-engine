@@ -43,6 +43,7 @@ def get_suggestions(username, password, device_id, genre, order=NONE):
 
 
 def filter_subs_by_genre(username, password, device_id, genre, order=NONE):
+    '''Return user subscriptions that match a certain tag.'''
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
     final_list = []
     if(genre == "all"):
@@ -59,6 +60,7 @@ def filter_subs_by_genre(username, password, device_id, genre, order=NONE):
 
 
 def filter_sugs_by_genre(username, password, device_id, genre, order=NONE):
+    '''Return user suggestions that match a certain tag.'''
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
     final_list = []
     if(genre == "all"):
@@ -103,6 +105,7 @@ def get_top_genres():
 
 
 def search_podcasts_by_genre(query, genre, order=NONE):
+    '''Return results of search query that match a certain tag.'''
     final_list = []
     if(genre == "all"):
         return search_podcasts(query, order)
@@ -135,6 +138,10 @@ def subs_gained_since_last_week(podcast):
 
 
 def get_monthly_freq_list(podcast):
+    '''Return an array containing the number of episodes per month in the last 3 months.
+    Catches a FeedParseError if feed is unparseable.
+    '''
+
     eps_per_month = [0 for x in range(3)]
     url = podcast.url
     try:
@@ -151,6 +158,7 @@ def get_monthly_freq_list(podcast):
 
 
 def num_in_last_3months(podcast):
+    '''Return the total number of episodes released in the last 3 months.'''
     freq = get_monthly_freq_list(podcast)
     return freq[2] + freq[1] + freq[0]
 
@@ -167,6 +175,8 @@ def get_monthly_avg(podcast):
 
 
 def jsonify_podcast(pod):
+    '''Returns a JSON representation of a podcast object.'''
+
     return {
         'title': pod.title,
         'description': pod.description,
@@ -177,6 +187,8 @@ def jsonify_podcast(pod):
 
 
 def jsonify_podcast_list(pod_list):
+    '''Returns a JSON representation of a list of JSON objects.'''
+
     new_pod_list = []
     for entry in pod_list:
         pod = jsonify_podcast(entry)

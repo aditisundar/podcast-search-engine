@@ -4,14 +4,9 @@ import SearchPage from './Search.js';
 import MyAccountPage from './MyAccount.js';
 import AboutPage from './AboutPage.js';
 import {
-  BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
-import Spinner from 'react-spinkit';
-
-
-var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
 class App extends Component {
   constructor() {
@@ -25,8 +20,6 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-
-
   }
 
   componentDidMount() {
@@ -51,8 +44,6 @@ class App extends Component {
     this.setState({
       logged_in: true
     });
-    console.log("parent seen submit")
-
   }
 
   handleLogout() {
@@ -63,8 +54,6 @@ class App extends Component {
       device: ""
     })
   }
-
-
 
   render() {
     return (
@@ -84,26 +73,13 @@ class App extends Component {
 
         <Route path="/search" exact component={SearchPage} />
         <Route path="/my_account" render={() => {
-
-          /*if (this.state.logged_in) {*/
           return <MyAccountPage logged_in={this.state.logged_in} user={this.state.user} pass={this.state.pass} device={this.state.device} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleLogout={this.handleLogout} />
-          /* } else {
-             return <LoginPage handleChange={this.state.handleChange} handleSubmit={this.state.handleSubmit} />
-           }*/
         }
         } />
         <Route path="/about" exact component={AboutPage} />
-
-
-
       </div >
     );
   }
 }
 
 export default App;
-
-    /*
-    
-       render={(props) => { <MyAccountPage {...props} logged_in={this.state.logged_in} /> }}
-        */

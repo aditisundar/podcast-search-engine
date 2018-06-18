@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom';
 
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
-
 class SearchPage extends Component {
     constructor() {
         super();
@@ -21,10 +20,6 @@ class SearchPage extends Component {
     }
 
     componentDidMount() {
-        this.scrollTo()
-    }
-
-    scrollTo() {
         var rect = ReactDOM.findDOMNode(this).getBoundingClientRect()
         window.scrollTo({
             top: rect.top,
