@@ -13,15 +13,16 @@ class LoginPage extends Component {
             <div className="Login">
                 <h1>Log in to view your subscriptions:</h1>
                 <div className="LoginField">
-                    <p>Username:</p>
-                    <input className="TextInput" type="text" name="user" onChange={this.props.handleChange} />
-                    <p>Password:</p>
-                    <input className="TextInput" type="text" name="pass" onChange={this.props.handleChange} />
-                    <p>Device ID:</p>
-                    <input className="TextInput" type="text" name="device" onChange={this.props.handleChange} />
-                    <br />
-                    <input className="Login-submit" type="submit" name="SUBMIT" onClick={this.props.handleSubmit} />
-
+                    <form onSubmit={this.props.handleSubmit}>
+                        <p>Username:</p>
+                        <input className="TextInput" type="text" name="user" onChange={this.props.handleChange} />
+                        <p>Password:</p>
+                        <input className="TextInput" type="text" name="pass" onChange={this.props.handleChange} />
+                        <p>Device ID:</p>
+                        <input className="TextInput" type="text" name="device" onChange={this.props.handleChange} />
+                        <br />
+                        <input className="Login-submit" type="submit" name="SUBMIT" onClick={this.props.handleSubmit} />
+                    </form>
                 </div>
             </div>
         )

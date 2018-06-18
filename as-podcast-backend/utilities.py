@@ -1,8 +1,6 @@
 from mygpoclient import api, public, feeds
 from mygpoclient.json import JsonClient
 import json
-# import speedparser
-# import feedparser
 import podcastparser
 import urllib
 import datetime

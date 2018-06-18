@@ -160,6 +160,11 @@ a {
     display: inline-block;
 }
 
+.AllGenres select {
+    border-style: none;
+    font-size: 15px;
+}
+
 .Search h1 {
     line-height: 20px;
 }

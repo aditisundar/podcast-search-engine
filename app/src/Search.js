@@ -31,7 +31,6 @@ class SearchPage extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     componentDidMount() {
@@ -54,11 +53,13 @@ class SearchPage extends Component {
     render() {
         return (
             <div className="Search">
-                <input className="Search-field" type="text" onChange={this.handleChange} />
-                <input className="Search-submit" type="submit" name="SUBMIT" onClick={this.handleSubmit} />
+                <form onSubmit={this.handleSubmit}>
+                    <input className="Search-field" type="text" onChange={this.handleChange} />
+                    <input className="Search-submit" type="submit" name="SUBMIT" onClick={this.handleSubmit} />
+                </form>
                 <h1>Search "{this.state.query}"</h1>
                 <SearchResults fetch_url={this.state.fetch_url} />
-            </div>
+            </div >
         );
     }
 }
