@@ -2,4 +2,4 @@ Flask==1.0.2
 gunicorn==19.8.1
 flask_cors==3.0.4
 mygpoclient==1.8
-speedparser==0.2.0
+podcastparser==0.6.3

@@ -21,6 +21,10 @@ class SearchPage extends Component {
     }
 
     componentDidMount() {
+        this.scrollTo()
+    }
+
+    scrollTo() {
         var rect = ReactDOM.findDOMNode(this).getBoundingClientRect()
         window.scrollTo({
             top: rect.top,

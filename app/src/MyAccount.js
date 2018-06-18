@@ -12,6 +12,31 @@ import ReactDOM from 'react-dom';
 
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
+class LoginPage extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+
+    render() {
+        return (
+            <div className="Login">
+                <h1>Log in to view your subscriptions:</h1>
+                <div className="LoginField">
+                    <p>Username:</p>
+                    <input className="TextInput" type="text" name="user" onChange={this.props.handleChange} />
+                    <p>Password:</p>
+                    <input className="TextInput" type="text" name="pass" onChange={this.props.handleChange} />
+                    <p>Device ID:</p>
+                    <input className="TextInput" type="text" name="device" onChange={this.props.handleChange} />
+                    <br />
+                    <input className="Login-submit" type="submit" name="SUBMIT" onClick={this.props.handleSubmit} />
+
+                </div>
+            </div>
+        )
+    }
+}
 
 class MySuggestions extends Component {
     constructor(props) {
@@ -48,54 +73,52 @@ class MySubscriptions extends Component {
 }
 
 class MyAccountPage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             fetch_url: base_url,
             logged_in: false,
-            user: "",
-            pass: "",
-            device: "",
+            user: this.props.user,
+            pass: this.props.pass,
+            device: this.props.device,
             showsugs: false,
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleLogout = this.handleLogout.bind(this);
-        this.switchPages = this.switchPages.bind(this);
     }
 
     componentDidMount() {
+        this.scrollTo()
+        if (this.props.logged_in) {
+            console.log(this.state.user)
+            console.log(this.state.pass)
+            console.log(this.state.device)
+            this.setState({ fetch_url: base_url + 'mysubs/user=' + this.state.user + '/pass=' + this.state.pass + '/device=' + this.state.device + '/genre=all/sorted=0' });
+            console.log(base_url + 'mysubs/user=' + this.state.user + '/pass=' + this.state.pass + '/device=' + this.state.device + '/genre=all/sorted=0')
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ logged_in: nextProps.logged_in });
+        if (nextProps.logged_in) {
+            console.log(nextProps.user)
+            console.log(nextProps.pass)
+            console.log(nextProps.device)
+            this.setState({
+                fetch_url: base_url + 'mysubs/user=' + nextProps.user + '/pass=' + nextProps.pass + '/device=' + nextProps.device + '/genre=all/sorted=0',
+                logged_in: true
+            });
+        } else {
+            this.setState({
+                logged_in: false
+            })
+        }
+    }
+
+    scrollTo() {
         var rect = ReactDOM.findDOMNode(this).getBoundingClientRect()
         window.scrollTo({
             top: rect.top,
             behavior: 'smooth'
         });
-        if (this.state.logged_in) {
-            this.setState({ fetch_url: base_url + 'mysubs/user=' + this.state.user + '/pass=' + '/device=' + this.state.device + '/genre=all/sorted=0' });
-            console.log(this.state.fetch_url)
-        }
-    }
-
-    handleChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
-    }
-
-    handleSubmit(event) {
-        this.setState({
-            logged_in: true,
-            fetch_url: base_url + 'mysubs/user=' + this.state.user + '/pass=' + this.state.pass + '/device=' + this.state.device + '/genre=all/sorted=0'
-        });
-
-    }
-
-    handleLogout() {
-        this.setState({
-            logged_in: false,
-            user: "",
-            pass: "",
-            device: ""
-        })
-
     }
 
     switchPages(e) {
@@ -108,14 +131,14 @@ class MyAccountPage extends Component {
     }
 
     render() {
-        if (this.state.logged_in) {
+        if (this.props.logged_in) {
             if (!this.state.showsugs) {
                 return (
                     <div className="MyAccount">
                         <div className="MyAccountButtons">
                             <li><button className="Subs" value={0} onClick={this.switchPages}>my subscriptions</button></li>
                             <li><button className="Sugs" value={1} onClick={this.switchPages}>recommended for me</button></li>
-                            <li><button className="LogoutButton" onClick={this.handleLogout}>log out</button></li>
+                            <li><button className="LogoutButton" onClick={this.props.handleLogout}>log out</button></li>
                         </div>
                         <MySubscriptions fetch_url={this.state.fetch_url} />
                     </div>
@@ -126,14 +149,19 @@ class MyAccountPage extends Component {
                         <div className="MyAccountButtons">
                             <li><button className="Subs" value={0} onClick={this.switchPages}>my subscriptions</button></li>
                             <li><button className="Sugs" value={1} onClick={this.switchPages}>recommended for me</button></li>
-                            <li><button className="LogoutButton" onClick={this.handleLogout}>log out</button></li>
+                            <li><button className="LogoutButton" onClick={this.props.handleLogout}>log out</button></li>
                         </div>
 
                         <MySuggestions fetch_url={this.state.fetch_url} />
                     </div>
                 );
             }
+        } else {
+            return (
+                <LoginPage handleSubmit={this.props.handleSubmit} handleChange={this.props.handleChange} />
+            );
         }
+        /*}
         else {
             return (
                 <div className="Login">
@@ -147,29 +175,13 @@ class MyAccountPage extends Component {
                         <input className="TextInput" type="text" name="device" onChange={this.handleChange} />
                         <br />
                         <input className="Login-submit" type="submit" name="SUBMIT" onClick={this.handleSubmit} />
-
+ 
                     </div>
                 </div>
             );
-        }
+        }*/
     }
 }
-/*
-class MyAccountPage extends Component {
-            render() {
-        return (
-    <div className="MyAccount">
-            <li><Link to="/">profile</Link></li>
-            <li><Link to="/subscriptions">subscriptions</Link></li>
-            <li><Link to="/suggestions">suggestions for me</Link></li>
 
-            <Route path="/subscriptions" exact component={MySubscriptions} />
-            <Route path="/suggestions" exact component={MySuggestions} />
-        </div>
-        );
- 
-    }
-}
-*/
 
 export default MyAccountPage;

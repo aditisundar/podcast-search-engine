@@ -9,13 +9,11 @@ a {
     font-weight: 400;
 }
 
-.App {}
-
 .App-header {
     background-color: #222;
     background: url(./bg.jpg) no-repeat center top;
     color: white;
-    min-height: 620px;
+    min-height: 650px;
     height: 100%;
     width: 100%;
     padding: 20px;
@@ -183,7 +181,7 @@ a {
     background-color: rgb(14, 128, 204);
     font-weight: 700;
     border: none;
-    width: 50%;
+    width: 700px;
     height: 40px;
     list-style-type: none;
     border-radius: 15px;
@@ -282,6 +280,7 @@ a {
 .TextInput {
     width: 15%;
     height: 20px;
+    font-size: 20px;
 }
 
 .Login-submit {
@@ -314,4 +313,12 @@ a {
 
 .About h1 {
     font-family: 'Song Myung', serif;
+    margin-left: 10px;
+}
+
+.About p {
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 30%;
+    line-height: 30px;
 }

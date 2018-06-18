@@ -21,12 +21,12 @@ class ResultsObject extends Component {
             loading: false,
         }
         this.orderResults = this.orderResults.bind(this);
-        this.unOrderResults = this.orderResults.bind(this);
         this.filterResults = this.filterResults.bind(this);
     }
 
     componentDidMount() {
         /* Fetch list of top tags */
+        console.log("mounted")
         this.setState({ loading: true });
         fetch(base_url + 'topgenres')
             .then(results => {
@@ -35,7 +35,7 @@ class ResultsObject extends Component {
                 this.setState({ genres: data });
                 this.setState({ loading: false });
             })
-        if (this.props.type === "user") {
+        if (this.props.type === "user" && this.props.fetch_url !== base_url) {
             console.log(this.props.fetch_url)
             fetch(this.state.current_fetch_url = this.props.fetch_url)
                 .then(results => {
@@ -48,22 +48,42 @@ class ResultsObject extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentWillReceiveProps(nextProps) {
         /* Fetch current results */
-        if (this.props.fetch_url !== prevProps.fetch_url) {
-            this.setState({ podcasts: [] });
-            this.setState({ loading: true });
+        console.log("updated")
+        console.log(nextProps.fetch_url)
+        console.log(nextProps.user)
 
-            fetch(this.state.current_fetch_url = this.props.fetch_url)
-                .then(results => {
-                    return results.json();
-                })
-                .then(data => {
-                    this.setState({ podcasts: data });
-                    this.setState({ loading: false });
-                })
-        }
+        this.setState({ podcasts: [] });
+        this.setState({ loading: true });
+
+        fetch(this.state.current_fetch_url = nextProps.fetch_url)
+            .then(results => {
+                return results.json();
+            })
+            .then(data => {
+                this.setState({ podcasts: data });
+                this.setState({ loading: false });
+            })
     }
+    /*
+        componentDidUpdate(prevProps) {
+            console.log("updated")
+    
+            if (this.props.fetch_url !== prevProps.fetch_url) {
+                this.setState({ podcasts: [] });
+                this.setState({ loading: true });
+    
+                fetch(this.state.current_fetch_url = this.props.fetch_url)
+                    .then(results => {
+                        return results.json();
+                    })
+                    .then(data => {
+                        this.setState({ podcasts: data });
+                        this.setState({ loading: false });
+                    })
+            }
+        }*/
 
     orderResults(e) {
         e.preventDefault();

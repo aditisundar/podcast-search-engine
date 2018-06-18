@@ -21,7 +21,17 @@ class AboutPage extends Component {
         return (
             <div className="About">
                 <h1>about</h1>
-                <p>Welcome!</p>
+                <p>
+                    Welcome! I created this podcast search engine for the Capital One Coding Challenge, implementing the gpodder.net api, using ReactJS for the front end and Flask for the backend.
+                <br />
+                    This was by no means an easy process - especially since I'm new to web development, and especially new to React. I did have a lot of fun creating it, and learned a lot in the process! For more details about how I created it and what I used, feel free to head on over to my Github, where you can see the source code as well as a README that will elaborate further on the aforementioned details.
+                <br />
+                    What should you know before exploring my site? Assuming you haven't already, here's some useful information:
+                <li>Sorting podcast results by subscribers may take a while, due to the rather... leisurely nature of RSS parsing, so give it thirty seconds to load, please!</li>
+                    <li>You can click a podcast title to directly open up the RSS feed.</li>
+                    <li>I haven't yet gotten login working perfectly - if you leave the my account page and return to it, just log out and log in again to see your subscriptions. </li>
+
+                </p>
             </div>
         );
     }
