@@ -27,9 +27,10 @@ class ResultsObject extends Component {
                 return results.json();
             }).then(data => {
                 this.setState({ genres: data });
-                this.setState({ loading: false });
+                this.setState({ loading: false })
             })
         if (this.props.type === "user" && this.props.fetch_url !== base_url) {
+            this.setState({ loading: true })
             fetch(this.state.current_fetch_url = this.props.fetch_url)
                 .then(results => {
                     return results.json();
@@ -98,6 +99,7 @@ class ResultsObject extends Component {
         if (this.state.loading) {
             return (
                 <div className="Loading">
+                    <p>Please allow up to 30 seconds to load...</p>
                     <Spinner className='Loader' name='ball-zig-zag-deflect' color='rgb(14, 128, 204)' />
                 </div>
             )

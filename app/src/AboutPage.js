@@ -24,7 +24,6 @@ class AboutPage extends Component {
                     What should you know before exploring my site? Assuming you haven't already, here's some useful information:
                 <li>Sorting podcast results by subscribers may take a while, due to the rather... leisurely nature of RSS parsing, so give it thirty seconds to load, please!</li>
                     <li>You can click a podcast title to directly open up the RSS feed.</li>
-                    <li>I haven't yet gotten login working perfectly - if you leave the my account page and return to it, just log out and log in again to see your subscriptions. </li>
 
                 </p>
             </div>

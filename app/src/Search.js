@@ -7,12 +7,38 @@ import ReactDOM from 'react-dom';
 
 var base_url = 'https://as-podcast-backend.herokuapp.com/';
 
+class WhatsHot extends Component {
+    render() {
+        return (
+            <div className="WhatsHot">
+                <h1>What's hot right now?</h1>
+                <ResultsObject type="search" fetch_url={this.props.fetch_url} />
+            </div>
+        );
+    }
+}
+
+class SearchResults extends Component {
+    render() {
+        if (this.props.fetch_url === base_url + 'toplist')
+            return (
+                <div className="WhatsHot">
+                    <h1>What's hot right now...</h1>
+                    <ResultsObject fetch_url={this.props.fetch_url} />
+                </div>
+            );
+        else {
+            return <ResultsObject type="search" fetch_url={this.props.fetch_url} />
+        }
+    }
+}
+
 class SearchPage extends Component {
     constructor() {
         super();
         this.state = {
             query: "",
-            fetch_url: base_url,
+            fetch_url: base_url + 'toplist',
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,7 +68,7 @@ class SearchPage extends Component {
                 <input className="Search-field" type="text" onChange={this.handleChange} />
                 <input className="Search-submit" type="submit" name="SUBMIT" onClick={this.handleSubmit} />
                 <h1>Search "{this.state.query}"</h1>
-                <ResultsObject type="search" fetch_url={this.state.fetch_url} />
+                <SearchResults fetch_url={this.state.fetch_url} />
             </div>
         );
     }
