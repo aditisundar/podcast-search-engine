@@ -111,7 +111,19 @@ class ResultsObject extends Component {
         } else {
             if (this.props.type == "sugs") {
                 return (
-                    <div>
+                    <div className="Suggestions">
+                        <div className="AllGenres">
+                            <p>Recmommendations by genre:</p>
+                            <select onChange={this.filterResults}>
+                                <option value={"all"}>all</option>
+                                {
+                                    this.state.genres.map(genre => {
+                                        return <option key={genre.tag} value={genre.tag} > {genre.tag}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <br />
                         {
                             this.state.podcasts.map(pod => {
                                 return <PodcastObject name={pod.title} desc={pod.description} num_subs={pod.subscribers} url={pod.url} logo_url={pod.logo_url} />

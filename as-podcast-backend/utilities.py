@@ -25,23 +25,43 @@ my_client = api.MygPodderClient(username, password, 'gpodder.net')
 num = 15
 
 
-def get_subscriptions(username, password, device_id, order=NONE):
+def get_client_subs(username, password, device_id):
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
-    list = []
+    subs = []
     for url in my_client.get_subscriptions(device_id):
-        list.append(public_client.get_podcast_data(url))
-    list = list[0:num]
-    list = appropriate_sort(list, order)
-    return jsonify_podcast_list(list)
+        subs.append(public_client.get_podcast_data(url))
+    return subs
+
+
+def get_subscriptions(username, password, device_id, order=NONE):
+    subs = get_client_subs(username, password, device_id)
+    subs = subs[0:num]
+    subs = appropriate_sort(subs, order)
+    return jsonify_podcast_list(subs)
+
+
+def filter_subs_by_genre(username, password, device_id, genre, order=NONE):
+    '''Return user subscriptions that match a certain tag.'''
+    final_list = []
+    if(genre == "all"):
+        return get_subscriptions(username, password, device_id, order)
+
+    pods_match_tag = public_client.get_podcasts_of_a_tag(genre)
+    my_subs = get_client_subs(username, password, device_id)
+    # filter out podcasts that don't match said tag
+    for p in my_subs:
+        if p in pods_match_tag:
+            final_list.append(p)
+    final_list = final_list[0:num]
+    final_list = appropriate_sort(final_list, order)
+    return jsonify_podcast_list(final_list)
 
 
 def get_suggestions(username, password, device_id):
-    my_client = api.MygPodderClient(username, password, 'gpodder.net')
     r = Rake()
     final_list = []
-    subs = my_client.get_subscriptions(device_id)
-    for url in subs:
-        pod = public_client.get_podcast_data(url)
+    subs = get_client_subs(username, password, device_id)
+    for pod in subs:
         r.extract_keywords_from_text(pod.description)
         keywords = r.get_ranked_phrases()
         for k in keywords[0:5]:
@@ -49,26 +69,20 @@ def get_suggestions(username, password, device_id):
                 urllib.quote(k.encode('utf8')))
             if(len(search_results) != 0 and search_results[0] not in subs):
                 final_list.append(search_results[0])
-
     final_list = appropriate_sort(final_list, 1)
     return jsonify_podcast_list(final_list)
 
 
-def filter_subs_by_genre(username, password, device_id, genre, order=NONE):
-    '''Return user subscriptions that match a certain tag.'''
-    my_client = api.MygPodderClient(username, password, 'gpodder.net')
+def filter_sugs_by_genre(username, password, device_id, genre, order=BY_POP):
     final_list = []
     if(genre == "all"):
-        return get_subscriptions(username, password, device_id, order)
-    pods_match_tag = public_client.get_podcasts_of_a_tag(genre)
-    my_subs = []
-    for url in my_client.get_subscriptions(device_id):
-        my_subs.append(public_client.get_podcast_data(url))
-    for p in my_subs:
-        if p in pods_match_tag:
+        return get_suggestions(username, password, device_id)
+    pods_match_tag = public_client.get_podcasts_of_a_tag(genre, 100)
+    my_subs = get_client_subs(username, password, device_id)
+    for p in pods_match_tag:
+        if(p not in my_subs):
             final_list.append(p)
-    final_list = final_list[0:num]
-    final_list = appropriate_sort(final_list, order)
+    final_list = appropriate_sort(final_list, BY_POP)
     return jsonify_podcast_list(final_list)
 
 

@@ -21,13 +21,13 @@ def get_top():
 
 
 @app.route("/mysubs/user=<u>/pass=<p>/device=<d>/genre=<genre>/sorted=<sort>")
-def get_filtered_subs(u, p, d, genre, sort):
+def get_subs(u, p, d, genre, sort):
     return utilities.filter_subs_by_genre(u, p, d, genre, int(sort))
 
 
-@app.route("/mysugs/user=<u>/pass=<p>/device=<d>/genre=all/sorted=0")
-def get_sugs(u, p, d):
-    return utilities.get_suggestions(u, p, d)
+@app.route("/mysugs/user=<u>/pass=<p>/device=<d>/genre=<genre>/sorted=<sort>")
+def get_sugs(u, p, d, genre, sort):
+    return utilities.filter_sugs_by_genre(u, p, d, genre, int(sort))
 
 
 @app.route("/topgenres")
