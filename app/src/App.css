@@ -15,7 +15,6 @@ a {
     color: white;
     min-height: 650px;
     height: 100%;
-    width: 100%;
     padding: 20px;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -233,22 +232,29 @@ a {
 
 .Search-field {
     width: 50%;
-    height: 30px;
+    height: 35px;
     font-size: 20px;
+    border-radius: 15px;
+    border-width: .8px;
+    vertical-align: middle;
 }
 
 .Search-submit {
     border-style: none;
     font-size: 20px;
-    height: 40px;
+    height: 30px;
+    width: 30px;
     padding: 5px;
     background-color: rgb(14, 128, 204);
     color: white;
     border-radius: 15px;
     margin-left: 10px;
+    vertical-align: middle;
+    transition: all .2s ease-in;
 }
 
 .Search-submit:hover {
+    transition: all .2s ease-in;
     background-color: rgb(9, 64, 100);
 }
 
@@ -283,26 +289,30 @@ a {
 }
 
 .TextInput {
-    width: 15%;
-    height: 20px;
+    width: 200px;
+    height: 30px;
     font-size: 20px;
+    border-radius: 15px;
+    border-width: .8px;
 }
 
 .Login-submit {
     margin-top: 20px;
     border-style: none;
     font-size: 20px;
-    width: 15%;
+    width: 90px;
     height: 40px;
     padding: 5px;
     background-color: rgb(14, 128, 204);
     color: white;
     border-radius: 15px;
     margin-left: 10px;
+    transition: all .2s ease-in;
 }
 
 .Login-submit:hover {
     background-color: rgb(9, 64, 100);
+    transition: all .2s ease-in;
 }
 
 .About {

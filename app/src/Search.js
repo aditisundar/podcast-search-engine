@@ -55,7 +55,7 @@ class SearchPage extends Component {
             <div className="Search">
                 <form onSubmit={this.handleSubmit}>
                     <input className="Search-field" type="text" onChange={this.handleChange} />
-                    <input className="Search-submit" type="submit" name="SUBMIT" onClick={this.handleSubmit} />
+                    <input className="Search-submit" type="image" src="https://www.queryly.com/images/whitesearchicon.png" onClick={this.handleSubmit} />
                 </form>
                 <h1>Search "{this.state.query}"</h1>
                 <SearchResults fetch_url={this.state.fetch_url} />
