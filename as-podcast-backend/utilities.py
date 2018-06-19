@@ -1,7 +1,7 @@
 from mygpoclient import api, public, feeds
 from mygpoclient.json import JsonClient
 import json
-import podcastparser
+import feedparser
 import urllib
 import datetime
 
@@ -150,10 +150,9 @@ def get_monthly_freq_list(podcast):
     eps_per_month = [0 for x in range(3)]
     url = podcast.url
     try:
-        parsed = podcastparser.parse(url, urllib.urlopen(url))
-        for ep in parsed["episodes"]:
-            date = datetime.datetime.fromtimestamp(ep["published"])
-            month = date.month
+        parsed = feedparser.parse(url)
+        for ep in parsed.entries:
+            month = ep.published_parsed[1]
             if(month > 6 or month < 4):
                 break
             eps_per_month[month-4] += 1
@@ -170,8 +169,8 @@ def num_in_last_3months(podcast):
 
 def get_monthly_avg(podcast):
     try:
-        f = podcastparser.parse(podcast.url, urllib.urlopen(podcast.url))
-        return len(f["episodes"])//12
+        f = feedparser.parse(podcast.url, urllib.urlopen(podcast.url))
+        return len(f.entries)//12
     except:
         return 0
 

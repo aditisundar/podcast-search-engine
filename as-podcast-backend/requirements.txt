@@ -2,5 +2,5 @@ Flask==1.0.2
 gunicorn==19.8.1
 flask_cors==3.0.4
 mygpoclient==1.8
-podcastparser==0.6.3
+feedparser==5.2.1
 requests==2.18.4
