@@ -76,6 +76,7 @@ class ResultsObject extends Component {
 
     filterResults(e) {
         this.setState({ podcasts: [] });
+        this.setState({ loading: true });
         var url = this.state.current_fetch_url;
         if (e.target.value === "all") {
             e.preventDefault();
@@ -84,6 +85,7 @@ class ResultsObject extends Component {
                     return results.json();
                 }).then(data => {
                     this.setState({ podcasts: data });
+                    this.setState({ loading: false });
                 })
         } else {
             fetch(this.state.current_fetch_url = this.state.current_fetch_url.replace(url.substring(url.indexOf('genre'), url.indexOf('sorted')), 'genre=' + e.target.value + '/'))
@@ -91,6 +93,7 @@ class ResultsObject extends Component {
                     return results.json();
                 }).then(data => {
                     this.setState({ podcasts: data });
+                    this.setState({ loading: false });
                 })
         }
     }

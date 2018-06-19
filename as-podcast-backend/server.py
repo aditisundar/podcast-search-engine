@@ -27,7 +27,7 @@ def get_filtered_subs(u, p, d, genre, sort):
 
 @app.route("/mysugs/user=<u>/pass=<p>/device=<d>/genre=<genre>/sorted=<sort>")
 def get_sugs(u, p, d, genre, sort):
-    return utilities.filter_sugs_by_genre(u, p, d, genre, 20, sort)
+    return utilities.filter_sugs_by_genre(u, p, d, genre, 25, sort)
 
 
 @app.route("/topgenres")
@@ -37,7 +37,7 @@ def get_top_genres():
 
 @app.route("/search/<query>/genre=<genre>/sorted=<sort>")
 def search_by_genre(query, genre, sort):
-    return utilities.search_podcasts_by_genre(query, genre, 20, int(sort))
+    return utilities.search_podcasts_by_genre(query, genre, 25, int(sort))
 
 
 if __name__ == "__main__":

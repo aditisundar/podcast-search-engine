@@ -33,5 +33,4 @@ I created the search engine using React (create-react-app) for the front end. I 
 * mygpoclient, for all api/podcast-related methods
 * Flask, to run a server locally (later deployed as a standalone server to heroku)
 * flask-cors
-* podcastparser, for speedy parsing of podcasts' RSS feeds
-* urllib, to obtain url stream for podcast parsing
+* feedparser, for speedy parsing of podcasts' RSS feeds

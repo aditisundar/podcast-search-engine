@@ -2,8 +2,6 @@ from mygpoclient import api, public, feeds
 from mygpoclient.json import JsonClient
 import json
 import feedparser
-import urllib
-import datetime
 
 
 # SORTING CONSTANTS
@@ -169,7 +167,7 @@ def num_in_last_3months(podcast):
 
 def get_monthly_avg(podcast):
     try:
-        f = feedparser.parse(podcast.url, urllib.urlopen(podcast.url))
+        f = feedparser.parse(podcast.url)
         return len(f.entries)//12
     except:
         return 0
