@@ -13,7 +13,7 @@ class ResultsObject extends Component {
             podcasts: [],
             genres: [],
             current_fetch_url: "",
-            loading: false,
+            loading: true,
         }
         this.orderResults = this.orderResults.bind(this);
         this.filterResults = this.filterResults.bind(this);
@@ -27,7 +27,6 @@ class ResultsObject extends Component {
                 return results.json();
             }).then(data => {
                 this.setState({ genres: data });
-                this.setState({ loading: false })
             })
         if (this.props.fetch_url !== base_url) {
             this.setState({ loading: true })
@@ -39,6 +38,8 @@ class ResultsObject extends Component {
                     this.setState({ podcasts: data });
                     this.setState({ loading: false });
                 })
+        } else {
+            this.setState({ loading: false })
         }
     }
 
@@ -108,6 +109,17 @@ class ResultsObject extends Component {
                 </div>
             )
         } else {
+            if (this.props.type == "sugs") {
+                return (
+                    <div>
+                        {
+                            this.state.podcasts.map(pod => {
+                                return <PodcastObject name={pod.title} desc={pod.description} num_subs={pod.subscribers} url={pod.url} logo_url={pod.logo_url} />
+                            })
+                        }
+                    </div>
+                )
+            }
             return (
                 <div className="Results">
                     <div className="Filters">

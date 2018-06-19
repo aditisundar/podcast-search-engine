@@ -34,7 +34,7 @@ class MySuggestions extends Component {
         return (
             <div className="MySugs">
                 <h1>Suggested For You:</h1>
-                <ResultsObject type="user" fetch_url={this.props.fetch_url} />
+                <ResultsObject type="sugs" fetch_url={this.props.fetch_url} />
             </div>
         )
     }
@@ -102,11 +102,14 @@ class MyAccountPage extends Component {
     }
 
     switchPages(e) {
-        if (e.target.value === 0) {
+        if (e.target.value === "subs") {
             this.setState({ showsugs: false });
+            this.setState({ fetch_url: base_url + 'mysubs/user=' + this.props.user + '/pass=' + this.props.pass + '/device=' + this.props.device + '/genre=all/sorted=0' });
+            console.log(base_url + 'mysubs/user=' + this.props.user + '/pass=' + this.props.pass + '/device=' + this.state.device + '/genre=all/sorted=0')
         } else {
             this.setState({ showsugs: true });
-            this.setState({ fetch_url: base_url + 'mysugs/user=' + this.state.user + '/pass=' + this.state.pass + '/device=' + this.state.device + '/genre=all/sorted=0' });
+            this.setState({ fetch_url: base_url + 'mysugs/user=' + this.props.user + '/pass=' + this.props.pass + '/device=' + this.props.device + '/genre=all/sorted=0' });
+            console.log(base_url + 'mysugs/user=' + this.props.user + '/pass=' + this.props.pass + '/device=' + this.props.device + '/genre=all/sorted=0')
         }
     }
 
@@ -115,8 +118,8 @@ class MyAccountPage extends Component {
             return (
                 <div className="MyAccount">
                     <div className="MyAccountButtons">
-                        <li><button className="Subs" value={0} onClick={this.switchPages}>my subscriptions</button></li>
-                        <li><button className="Sugs" value={1} onClick={this.switchPages}>recommended for me</button></li>
+                        <li><button className="Subs" value="subs" onClick={this.switchPages}>my subscriptions</button></li>
+                        <li><button className="Sugs" value="sugs" onClick={this.switchPages}>recommended for me</button></li>
                         <li><button className="LogoutButton" onClick={this.props.handleLogout}>log out</button></li>
                     </div>
                     <MyInfo fetch_url={this.state.fetch_url} showsugs={this.state.showsugs} />
