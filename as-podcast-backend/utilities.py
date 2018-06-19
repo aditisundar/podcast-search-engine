@@ -20,6 +20,8 @@ username = ""  # aditer
 password = ""  # 7424
 device_id = ""  # aditi
 
+num = 10  # num of podcasts to return
+
 
 my_client = api.MygPodderClient(username, password, 'gpodder.net')
 
@@ -29,6 +31,7 @@ def get_subscriptions(username, password, device_id, order=NONE):
     list = []
     for url in my_client.get_subscriptions(device_id):
         list.append(public_client.get_podcast_data(url))
+    list = list[0:num]
     list = appropriate_sort(list, order)
     return jsonify_podcast_list(list)
 
@@ -36,6 +39,7 @@ def get_subscriptions(username, password, device_id, order=NONE):
 def get_suggestions(username, password, device_id, genre, order=NONE):
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
     list = my_client.get_suggestions()
+    list = list[0:num]
     list = appropriate_sort(list, order)
     return jsonify_podcast_list(list)
 
@@ -53,11 +57,12 @@ def filter_subs_by_genre(username, password, device_id, genre, order=NONE):
     for p in my_subs:
         if p in pods_match_tag:
             final_list.append(p)
+    final_list = final_list[0:num]
     final_list = appropriate_sort(final_list, order)
     return jsonify_podcast_list(final_list)
 
 
-def filter_sugs_by_genre(username, password, device_id, genre, order=NONE):
+def filter_sugs_by_genre(username, password, device_id, genre, num, order=NONE):
     '''Return user suggestions that match a certain tag.'''
     my_client = api.MygPodderClient(username, password, 'gpodder.net')
     final_list = []
@@ -70,6 +75,7 @@ def filter_sugs_by_genre(username, password, device_id, genre, order=NONE):
     for p in my_sugs:
         if p in pods_match_tag:
             final_list.append(p)
+    final_list = final_list[0:num]
     final_list = appropriate_sort(final_list, order)
     return jsonify_podcast_list(final_list)
 
@@ -86,6 +92,7 @@ def get_top_list():
 
 def search_podcasts(query, order=NONE):
     list = public_client.search_podcasts(query)
+    list = list[0:num]
     list = appropriate_sort(list, order)
     return jsonify_podcast_list(list)
 
@@ -102,7 +109,7 @@ def get_top_genres():
     return JsonClient.encode(final_json)
 
 
-def search_podcasts_by_genre(query, genre, order=NONE):
+def search_podcasts_by_genre(query, genre, num, order=NONE):
     '''Return results of search query that match a certain tag.'''
     final_list = []
     if(genre == "all"):
@@ -174,7 +181,6 @@ def get_monthly_avg(podcast):
 
 def jsonify_podcast(pod):
     '''Returns a JSON representation of a podcast object.'''
-
     return {
         'title': pod.title,
         'description': pod.description,
@@ -186,7 +192,6 @@ def jsonify_podcast(pod):
 
 def jsonify_podcast_list(pod_list):
     '''Returns a JSON representation of a list of JSON objects.'''
-
     new_pod_list = []
     for entry in pod_list:
         pod = jsonify_podcast(entry)

@@ -3,3 +3,4 @@ gunicorn==19.8.1
 flask_cors==3.0.4
 mygpoclient==1.8
 podcastparser==0.6.3
+requests==2.18.4
