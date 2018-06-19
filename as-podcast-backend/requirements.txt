@@ -4,3 +4,6 @@ flask_cors==3.0.4
 mygpoclient==1.8
 feedparser==5.2.1
 requests==2.18.4
+rake_nltk===1.0.4
+enum34==1.1.6
+nltk==3.3
