@@ -34,3 +34,4 @@ I created the search engine using React (create-react-app) for the front end. I 
 * Flask, to run a server locally (later deployed as a standalone server to heroku)
 * flask-cors
 * feedparser, for speedy parsing of podcasts' RSS feeds
+* rake-nltk, to take user subscriptions & generate suggestions based on keywords found in the description
