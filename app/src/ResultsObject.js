@@ -14,6 +14,7 @@ class ResultsObject extends Component {
             genres: [],
             current_fetch_url: "",
             loading: true,
+            error: ""
         }
         this.orderResults = this.orderResults.bind(this);
         this.filterResults = this.filterResults.bind(this);
@@ -32,11 +33,18 @@ class ResultsObject extends Component {
             this.setState({ loading: true })
             fetch(this.state.current_fetch_url = this.props.fetch_url)
                 .then(results => {
+                    if (!results.ok) {
+                        throw results
+                    }
                     return results.json();
+                    this.setState({ error: "" })
                 })
                 .then(data => {
                     this.setState({ podcasts: data });
                     this.setState({ loading: false });
+                })
+                .catch(err => {
+                    this.setState({ error: "Error: try reloading the page or logging out and back in." })
                 })
         } else {
             this.setState({ loading: false })
@@ -50,11 +58,17 @@ class ResultsObject extends Component {
             this.setState({ loading: true });
             fetch(this.state.current_fetch_url = nextProps.fetch_url)
                 .then(results => {
+                    if (!results.ok) {
+                        throw results
+                    }
                     return results.json();
+                    this.setState({ error: "" })
                 })
                 .then(data => {
                     this.setState({ podcasts: data });
                     this.setState({ loading: false });
+                }).catch(err => {
+                    this.setState({ error: "Error: try reloading the page or logging out and back in." })
                 })
         }
     }
@@ -67,11 +81,17 @@ class ResultsObject extends Component {
         var url = this.state.current_fetch_url;
         fetch(this.state.current_fetch_url = url.substring(0, url.indexOf('sorted=')) + 'sorted=' + e.target.value)
             .then(results => {
+                if (!results.ok) {
+                    throw results
+                }
                 return results.json();
+                this.setState({ error: "" })
             })
             .then(data => {
                 this.setState({ podcasts: data });
                 this.setState({ loading: false });
+            }).catch(err => {
+                this.setState({ error: "Error: try reloading the page or logging out and back in." })
             })
     }
 
@@ -83,7 +103,11 @@ class ResultsObject extends Component {
             e.preventDefault();
             fetch(this.state.current_fetch_url = url.replace(url.substring(url.indexOf('genre'), url.indexOf('sorted')), 'genre=all/'))
                 .then(results => {
+                    if (!results.ok) {
+                        throw results
+                    }
                     return results.json();
+                    this.setState({ error: "" })
                 }).then(data => {
                     this.setState({ podcasts: data });
                     this.setState({ loading: false });
@@ -95,13 +119,22 @@ class ResultsObject extends Component {
                 }).then(data => {
                     this.setState({ podcasts: data });
                     this.setState({ loading: false });
+                }).catch(err => {
+                    this.setState({ error: "Error: try reloading the page or logging out and back in." })
                 })
         }
     }
 
 
     render() {
-        if (this.state.loading) {
+        if (this.state.error !== "") {
+            return (
+                <div className="Error">
+                    <p>{this.state.error}</p>
+                </div>
+            );
+        }
+        else if (this.state.loading) {
             return (
                 <div className="Loading">
                     <p>Please allow up to 30 seconds to load...</p>

@@ -341,3 +341,7 @@ a {
     margin-right: 30%;
     line-height: 30px;
 }
+
+.Error p {
+    text-align: center;
+}
