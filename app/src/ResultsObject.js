@@ -147,7 +147,6 @@ class ResultsObject extends Component {
                     <div className="Filters">
                         <div className="OrderBy">
                             <p>Order by:</p>
-                            <button value={0} onClick={this.orderResults}>Relevance</button>
                             <button value={1} onClick={this.orderResults}>Popularity</button>
                             <button value={2} onClick={this.orderResults}>Episodes per month</button>
                             <button value={3} onClick={this.orderResults}>Recently updated</button>
