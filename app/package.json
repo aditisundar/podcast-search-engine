@@ -1,7 +1,7 @@
 {
   "name": "static",
   "version": "0.1.0",
-  "homepage": "https://as-podcast-search.herokuapp.com/",
+  "homepage": "https://ohmypod.herokuapp.com/",
   "private": true,
   "dependencies": {
     "npm": "^6.1.0",
