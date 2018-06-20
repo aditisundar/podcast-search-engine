@@ -23,6 +23,7 @@ class AboutPage extends Component {
                 <br />
                     What should you know before exploring my site? Assuming you haven't already, here's some useful information:
                 <li>Sorting podcast results by subscribers may take a while, due to the rather... leisurely nature of RSS parsing, so give it thirty seconds to load, please!</li>
+                    <li>Sometimes Heroku gets sleepy & times out, so if something takes more than 30 seconds to load, please try reloading the page! </li>
                     <li>You can click a podcast title to directly open up the RSS feed.</li>
 
                 </p>
