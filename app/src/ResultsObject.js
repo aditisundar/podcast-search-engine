@@ -131,6 +131,16 @@ class ResultsObject extends Component {
                         }
                     </div>
                 )
+            } else if (this.props.type == "top") {
+                return (
+                    <div>
+                        {
+                            this.state.podcasts.map(pod => {
+                                return <PodcastObject name={pod.title} desc={pod.description} num_subs={pod.subscribers} url={pod.url} logo_url={pod.logo_url} />
+                            })
+                        }
+                    </div >
+                );
             }
             return (
                 <div className="Results">

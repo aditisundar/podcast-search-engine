@@ -13,7 +13,7 @@ class SearchResults extends Component {
             return (
                 <div className="WhatsHot">
                     <h1>What's hot right now?</h1>
-                    <ResultsObject type="user" fetch_url={base_url + 'toplist'} />
+                    <ResultsObject type="top" fetch_url={base_url + 'toplist'} />
                 </div>
             );
         else {
