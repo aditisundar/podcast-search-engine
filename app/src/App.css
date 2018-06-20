@@ -180,6 +180,10 @@ a {
     height: 0;
 }
 
+.Loading p {
+    text-align: center;
+}
+
 .MyAccountButtons {
     font-size: 20px;
     background-color: rgb(14, 128, 204);

@@ -35,3 +35,7 @@ I created the search engine using React (create-react-app) for the front end. I 
 * flask-cors
 * feedparser, for speedy parsing of podcasts' RSS feeds
 * rake-nltk, to take user subscriptions & generate suggestions based on keywords found in the description
+
+## Notes
+* Some of the sorts can take ~30 seconds, because parsing a bunch of RSS feeds is...not speedy whatsoever...
+* Sometimes Heroku gets sleepy & times out, so if something takes more than 30 seconds to load, please try reloading the page! 
